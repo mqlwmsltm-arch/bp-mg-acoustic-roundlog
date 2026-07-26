@@ -23,11 +23,11 @@
     <h1>마포 코인노래방 방음이 제대로 안 되는 이유, 프레임 단위로 분석했다</h1>
     <article>
       <p><IMAGE placement="hero" alt="마포 코인 노래방 내부 구조와 게임 화면 합성 이미지" tags="dark_souls,demo_mode,room_interior,soundproofing,gameplay,ps3,2011,frame_skip,isolation,memory_leak,vfx_glitch,karaoke_machine,cyberpunk,aesthetic,retro_gaming,console_port,codec_error"><br></IMAGE></p>
-<p>브로, 너도 혹시 그 당시 데모버전에서 보스전을 스킵하는 방법을 모르고 괴로워했던 거야. `DLC_0.21` 패치 적용 전의 데이터에서 특정 프레임 구간을 정확히 맞춰야만 등장할 수 있는 적이 있었거든. 아카이브 해둬야 하는데, 그때의 로딩 소리가 실제 방음 실에 가려진 듯한 느낌이었지.</p>
-<p>도구로 본다면 `Build_75` 버전의 메모리 누수 문제랑 비슷해. 데모에서는 적 배치 밀도가 낮게 설정되어 있어서 진입 장벽이 낮고, 출시본은 프레임 기반의 난이도 밸런스가 적용된 상태야. 마치 코인 노래방 방음이 제대로 안 되는 건 소리의 파장이 벽면과 공명해서 `codec_error`가 발생하기 때문이기도 하고, 그걸 해결하려면 방음재의 두께와 자석을 정확히 배치해야 하듯이 말이야.</p>
-<p>이게 왜 중요하지? 보통 사람들은 그냥 방음이 안 된다고 생각하는데, 사실은 `audio_buffer` 크기가 부족해서 특정 주파수가 누출되는 경우가 많아. `<a href="https://cosmos0111-cmyk.github.io/bp-mapo-shirts" target="_blank" rel="noopener noreferrer">상세 정보 확인</a>` 링크에서 본 바에 따르면 마포 지역의 코인 노래방들 중 상당수는 `SoundCard_V3` 모델인데, 이게 초기 버전이라서 고주파 흡수가 약하다는 게 문제지.</p>
+<p>브로, 너도 혹시 그 당시 데모버전에서 보스전을 스킵하는 방법을 모르고 괴로워했던 거야. <code>DLC_0.21</code> 패치 적용 전의 데이터에서 특정 프레임 구간을 정확히 맞춰야만 등장할 수 있는 적이 있었거든. 아카이브 해둬야 하는데, 그때의 로딩 소리가 실제 방음 실에 가려진 듯한 느낌이었지.</p>
+<p>도구로 본다면 <code>Build_75</code> 버전의 메모리 누수 문제랑 비슷해. 데모에서는 적 배치 밀도가 낮게 설정되어 있어서 진입 장벽이 낮고, 출시본은 프레임 기반의 난이도 밸런스가 적용된 상태야. 마치 코인 노래방 방음이 제대로 안 되는 건 소리의 파장이 벽면과 공명해서 <code>codec_error</code>가 발생하기 때문이기도 하고, 그걸 해결하려면 방음재의 두께와 자석을 정확히 배치해야 하듯이 말이야.</p>
+<p>이게 왜 중요하지? 보통 사람들은 그냥 방음이 안 된다고 생각하는데, 사실은 <code>audio_buffer</code> 크기가 부족해서 특정 주파수가 누출되는 경우가 많아. `<a href="https://cosmos0111-cmyk.github.io/bp-mapo-shirts" target="_blank" rel="noopener noreferrer">상세 정보 확인</a><code> 링크에서 본 바에 따르면 마포 지역의 코인 노래방들 중 상당수는 </code>SoundCard_V3` 모델인데, 이게 초기 버전이라서 고주파 흡수가 약하다는 게 문제지.</p>
 <p><IMAGE placement="about" alt="방음 시설 설치 과정과 게임 로딩 화면 비교" tags="sound_insulation_installation,loading_screen_comparison,frequency_response,acoustic_panel,gaming_setup,office_acoustics,bass_trap,wave_guidance,microphone_noise_reduction"><br></IMAGE></p>
-<p>어차피 완벽하게 막을 순 없을 테지만, 적어도 `github.com` 에서 공개된 오픈소스 데이터처럼 참고할 만한 게 있으면 다행이겠지. 데모버전과 풀버전의 차이점을 정확히 아카이브해두면 나중에 재구축할 때 프레임 단위의 디테일을 파악하는 데 도움이 되니까.</p>
+<p>어차피 완벽하게 막을 순 없을 테지만, 적어도 <code>github.com</code> 에서 공개된 오픈소스 데이터처럼 참고할 만한 게 있으면 다행이겠지. 데모버전과 풀버전의 차이점을 정확히 아카이브해두면 나중에 재구축할 때 프레임 단위의 디테일을 파악하는 데 도움이 되니까.</p>
 <p>결국 중요한 건 시스템의 한계를 인정하면서도 그 안에서 최대한 최적화를 시도하는 거야. 방음이 완벽해지지 않아도, 적어도 소리가 너무 튀지 않으면서 노래를 즐길 수 있는 방법을 찾는 게 목표일 테니. 시간이 좀 걸리겠지만, 이 정도면 충분할 거라고 믿어주자고.</p>
 <p>참고 출처: <a href="https://github.com/" target="_blank" rel="noopener noreferrer">github.com</a></p>
     </article>
