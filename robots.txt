@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://acoustic.roundlog.site/sitemap.xml
+Sitemap: https://acoustic.roundlog.site/sitemap-pages.xml
