@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글 목록 (2/3) · ganseo-doorway</title>
+  <meta name="description" content="ganseo-doorway에 올라온 글 목록입니다.">
+  <link rel="canonical" href="https://acoustic.roundlog.site/posts-2.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+ *,
+ *::before,
+ *::after {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
+ html {
+ font-size: 16px;
+ scroll-behavior: smooth;
+ }
+ body {
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans KR', sans-serif;
+ line-height: 1.8;
+ color: #1a1a2e;
+ background-color: #faf9f6;
+ letter-spacing: 0.01em;
+ }
+ a {
+ color: #b8860b;
+ text-decoration: none;
+ transition: color 0.3s ease;
+ }
+ a:hover {
+ color: #8b6508;
+ }
+ img,
+ svg {
+ max-width: 100%;
+ height: auto;
+ display: block;
+ }
+ h1,
+ h2,
+ h3,
+ h4 {
+ font-family: 'Noto Serif KR', 'Times New Roman', serif;
+ font-weight: 700;
+ line-height: 1.3;
+ color: #1a1a2e;
+ }
+ h1 {
+ font-size: clamp(2rem, 4vw, 3.2rem);
+ letter-spacing: -0.02em;
+ margin-bottom: 1.5rem;
+ }
+ h2 {
+ font-size: clamp(1.5rem, 3vw, 2.2rem);
+ margin-top: 3rem;
+ margin-bottom: 1.2rem;
+ border-bottom: 2px solid #b8860b;
+ padding-bottom: 0.5rem;
+ }
+ h3 {
+ font-size: clamp(1.2rem, 2vw, 1.6rem);
+ margin-top: 2rem;
+ margin-bottom: 0.8rem;
+ }
+ p {
+ margin-bottom: 1.2rem;
+ font-size: 1rem;
+ color: #2d2d44;
+ }
+ .drop-cap::first-letter {
+ font-size: 3.5em;
+ float: left;
+ line-height: 0.8;
+ margin-right: 0.15em;
+ font-family: 'Noto Serif KR', serif;
+ color: #b8860b;
+ font-weight: 700;
+ }
+ .container {
+ max-width: 960px;
+ margin: 0 auto;
+ padding: 0 1.5rem;
+ }
+ header {
+ background: #1a1a2e;
+ padding: 1rem 0;
+ position: sticky;
+ top: 0;
+ z-index: 1000;
+ border-bottom: 3px solid #b8860b;
+ }
+ .header-inner {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 0 1.5rem;
+ position: relative;
+ }
+ .site-title {
+ font-family: 'Noto Serif KR', serif;
+ font-size: 1.3rem;
+ color: #faf9f6;
+ font-weight: 700;
+ letter-spacing: 0.05em;
+ }
+ .site-title a {
+ color: #faf9f6;
+ }
+ .site-title a:hover {
+ color: #b8860b;
+ }
+ nav {
+ display: flex;
+ gap: 2rem;
+ align-items: center;
+ }
+ nav a {
+ color: #d4d4dc;
+ font-size: 0.95rem;
+ font-weight: 500;
+ letter-spacing: 0.03em;
+ transition: color 0.3s ease;
+ position: relative;
+ }
+ nav a::after {
+ content: '';
+ position: absolute;
+ bottom: -4px;
+ left: 0;
+ width: 0;
+ height: 2px;
+ background: #b8860b;
+ transition: width 0.3s ease;
+ }
+ nav a:hover::after {
+ width: 100%;
+ }
+ nav a:hover {
+ color: #faf9f6;
+ }
+ nav a.active {
+ color: #b8860b;
+ }
+ .hamburger-menu {
+ display: none;
+ background: none;
+ border: none;
+ cursor: pointer;
+ padding: 0.5rem;
+ }
+ .hamburger-menu span {
+ display: block;
+ width: 28px;
+ height: 3px;
+ background: #faf9f6;
+ margin: 5px 0;
+ border-radius: 2px;
+ transition: all 0.3s ease;
+ }
+ .tel-link {
+ display: inline-flex;
+ align-items: center;
+ gap: 0.4rem;
+ background: #b8860b;
+ color: #1a1a2e;
+ padding: 0.4rem 1.2rem;
+ border-radius: 30px;
+ font-weight: 600;
+ font-size: 0.9rem;
+ transition: background 0.3s ease, transform 0.2s ease;
+ }
+ .tel-link:hover {
+ background: #d4a420;
+ color: #1a1a2e;
+ transform: scale(1.05);
+ }
+ .tel-link::before {
+ content: '📞';
+ font-size: 1rem;
+ }
+ main {
+ padding: 3rem 0 5rem;
+ }
+ .hero-section {
+ background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+ color: #faf9f6;
+ padding: 4rem 0;
+ margin-bottom: 3rem;
+ text-align: center;
+ }
+ .hero-section h1 {
+ color: #faf9f6;
+ margin-bottom: 1rem;
+ }
+ .hero-section p {
+ color: #d4d4dc;
+ font-size: 1.1rem;
+ max-width: 700px;
+ margin: 0 auto;
+ }
+ .profile-card {
+ display: flex;
+ align-items: flex-start;
+ gap: 2.5rem;
+ background: #ffffff;
+ border-radius: 12px;
+ padding: 2.5rem;
+ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+ margin-bottom: 2.5rem;
+ border-left: 4px solid #b8860b;
+ }
+ .profile-image {
+ flex-shrink: 0;
+ width: 180px;
+ height: 180px;
+ border-radius: 50%;
+ background: #e8e4d9;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 4rem;
+ color: #b8860b;
+ border: 3px solid #b8860b;
+ }
+ .profile-info h2 {
+ margin-top: 0;
+ border-bottom: none;
+ padding-bottom: 0;
+ font-size: 1.6rem;
+ }
+ .profile-info .subtitle {
+ color: #b8860b;
+ font-weight: 600;
+ font-size: 0.95rem;
+ margin-bottom: 1rem;
+ letter-spacing: 0.05em;
+ }
+ .profile-info p {
+ font-size: 0.95rem;
+ color: #2d2d44;
+ }
+ .credentials-list {
+ list-style: none;
+ padding: 0;
+ margin: 1.5rem 0;
+ }
+ .credentials-list li {
+ padding: 0.6rem 0;
+ border-bottom: 1px solid #e8e4d9;
+ display: flex;
+ gap: 0.8rem;
+ align-items: baseline;
+ font-size: 0.95rem;
+ }
+ .credentials-list li::before {
+ content: '✓';
+ color: #b8860b;
+ font-weight: 700;
+ flex-shrink: 0;
+ }
+ .stats-grid {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 1.5rem;
+ margin: 2.5rem 0;
+ }
+ .stat-item {
+ background: #ffffff;
+ border-radius: 10px;
+ padding: 1.8rem 1.2rem;
+ text-align: center;
+ box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+ border: 1px solid #e8e4d9;
+ }
+ .stat-item .number {
+ font-size: 2.2rem;
+ font-weight: 700;
+ color: #b8860b;
+ font-family: 'Noto Serif KR', serif;
+ }
+ .stat-item .label {
+ font-size: 0.85rem;
+ color: #6b6b80;
+ margin-top: 0.4rem;
+ letter-spacing: 0.02em;
+ }
+ .faq-section {
+ background: #ffffff;
+ border-radius: 12px;
+ padding: 2rem;
+ margin-top: 2.5rem;
+ box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+ }
+ .faq-item {
+ padding: 1.2rem 0;
+ border-bottom: 1px solid #e8e4d9;
+ }
+ .faq-item:last-child {
+ border-bottom: none;
+ }
+ .faq-item h4 {
+ font-size: 1.05rem;
+ margin-bottom: 0.6rem;
+ color: #1a1a2e;
+ cursor: pointer;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+ .faq-item h4::after {
+ content: '+';
+ font-size: 1.5rem;
+ color: #b8860b;
+ font-weight: 300;
+ }
+ .faq-item p {
+ font-size: 0.92rem;
+ color: #2d2d44;
+ margin-bottom: 0;
+ }
+ footer {
+ background: #1a1a2e;
+ color: #d4d4dc;
+ padding: 2.5rem 0;
+ text-align: center;
+ font-size: 0.9rem;
+ border-top: 3px solid #b8860b;
+ }
+ footer p {
+ color: #d4d4dc;
+ margin-bottom: 0.3rem;
+ }
+ footer a {
+ color: #b8860b;
+ }
+ @media (max-width: 768px) {
+ .hamburger-menu {
+ display: block;
+ }
+ nav {
+ display: none;
+ position: absolute;
+ top: 100%;
+ left: 0;
+ right: 0;
+ background: #1a1a2e;
+ flex-direction: column;
+ padding: 1.5rem;
+ gap: 1rem;
+ border-bottom: 3px solid #b8860b;
+ z-index: 999;
+ }
+ nav.active {
+ display: flex;
+ }
+ .profile-card {
+ flex-direction: column;
+ align-items: center;
+ text-align: center;
+ padding: 1.5rem;
+ }
+ .profile-image {
+ width: 140px;
+ height: 140px;
+ font-size: 3rem;
+ }
+ .stats-grid {
+ grid-template-columns: 1fr;
+ gap: 1rem;
+ }
+ .credentials-list li {
+ text-align: left;
+ }
+ .hero-section {
+ padding: 2.5rem 0;
+ }
+ .container {
+ padding: 0 1rem;
+ }
+ }
+ @media (min-width: 769px) {
+ .hamburger-menu {
+ display: none;
+ }
+ nav {
+ display: flex !important;
+ }
+ }
+ </style>
+  <meta property="og:title" content="글 목록 (2/3) · ganseo-doorway">
+  <meta property="og:description" content="ganseo-doorway에 올라온 글 목록입니다.">
+  <meta property="og:url" content="https://acoustic.roundlog.site/posts-2.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+  <div class="container">
+    <header>
+ <div class="header-inner">
+ <div class="site-title">
+ <a href="/">마포 방음 시설 가이드</a>
+ </div>
+ <button class="hamburger-menu" aria-label="메뉴 열기" onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active');">
+ 
+ 
+ 
+ </button>
+ <nav>
+ <a href="/">홈</a>
+ <a href="/about" class="active">소개</a>
+ <a href="/mapo-guide">마포구 가이드</a>
+ <a href="/comparison">비교 분석</a>
+ <a href="/reviews">방문 후기</a>
+ <a href="/faq">FAQ</a>
+ 
+ </nav>
+ </div>
+ </header>
+    <main>
+      <h1>글 목록</h1>
+      <p>전체 58개 · 2/3 페이지</p>
+      <ul class="post-list">
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-004-ialy4i.html">마포 코인노래방 방음 비교하려다 파이트 클럽 광패임 찾은 이야기</a>
+        <p class="post-item__summary">&quot;혹시 파이트클럽에서 narrator가 책상에 앉아 있는 장면, 화면이 점멸하는 거 본 적 있어?&quot;</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-005-466duq.html">어차피 패치됐지만, 2011년 네트워크 테스트에서만 살았던 보이지 않는 복도 이야기</a>
+        <p class="post-item__summary">&quot;이거 2011년 8월 Builds/406에만 있었던 벽이야. 지금은 벽돌 텍스처로 꽉 막혀 있거든.&quot;</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-005-relvx4.html">아, 이게 그렇게 중요한 디테일이었다고?</a>
+        <p class="post-item__summary">이거 진짜 아는 사람만 아는 얘긴데, 솔직히 말하면 나도 처음엔 개무시했다. 2023년 리스탁 물량 처음 받았을 때만 해도 &quot;아, 또 똑같은 거 재발매했네&quot; 싶었지. 근데 박스 열자마자 인솔에서 느</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-001-1fdyg12.html">홍대 폐업 사례 수집하려다 관둔 이유</a>
+        <p class="post-item__summary">잘 모르겠는데, 2023년에 홍대에서 문 닫은 가게들 보면 진짜 다 같은 이유로 망하는 건지 궁금한 적 없으세요? 나는 원래 이런 것들 아카이브하려는 버릇이 있어서, 지난 1년 동안 홍대·합정 쪽 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-002-1bw5l8j.html">아, 이거 진짜 별거 아닌데… 방음 점수 0.3점 올리려고 인테리어 공사한 썰 푼다</a>
+        <p class="post-item__summary">인솔 로고가 지워진다는 걸 처음 알게 된 건 2023년 4월 리스탁 물량을 까면서였어요. 아니, 정확히는 지워졌다기보다 프린트 방식 자체가 바뀌었더라고요. 기존 2021년산은 실크스크린처럼 두껍게 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-002-6ou9a5.html">마포 코인노래방, 방음 0.8t vs 1.2t의 차이를 아는 사람이 거의 없더라</a>
+        <p class="post-item__summary">12월 17일 밤 11시 42분. 홍대 3번 출구 앞 골목에서 다섯 번째 폐업 간판을 봤다. &quot;시설 양도합니다&quot;라는 문구가 붙은 유리문 너머로 이중 방음문이 반쯤 열려 있었다. 기계 설치는 다 되어</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-002-7ka8l3.html">마포 셔츠룸 방음 부스에서 발견한 파이트클럽 편집 비밀</a>
+        <p class="post-item__summary">2011년 뉴욕 편집실에서 unnamed 어시스턴트 편집자가 뭔가를 발견했어. &quot;이게 의도야, 아니면 필름 흠이야?&quot; 편집팀 모두가 화면 앞에 모여들었지.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-003-1s7hs05.html">어차피 벽이 얇으면 의미없는데, 마포 코인노래방 방음 실측 비교해봤습니다</a>
+        <p class="post-item__summary">83dB. 마포역 1번 출구 기준 도보 5분 권역에 있는 코인노래방 A에서 제 핸드폰 앱으로 재측한 제 목소리 데시벨이었습니다. 옆방에서 누가 발라드를 부르고 있었고, 그 소리가 제 리버브에 섞여 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-003.html">마포 코인노래방 방음 시설 비교 가이드</a>
+        <p class="post-item__summary">elden ring boss concept art, dark fantasy, unused game asset, data mining, 4k, shadowy silhouette, glowing run</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-004-1gtpb9d.html">마포 코인노래방 방음 시설 비교 가이드</a>
+        <p class="post-item__summary">쾌적한 노래 환경을 위한 방음의 실체를 파헤칩니다.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-004-1r2iuul.html">잘 몰라서 그러는데... 다크소울1 테스트 빌드 미사용 무기랑 마포 코인노래방 방음 설계의 공통점이 뭔지 아시나요</a>
+        <p class="post-item__summary">2011년 6월, E3 데모 빌드의 `dvdbnd0.bdt` 아카이브 파일 크기는 정확히 1.42GB였습니다. 정식판 출시를 앞두고 급하게 패킹된 이 데이터 속에는 개발진의 타협과 좌절이 고스란히 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-005-16aytlu.html">마포 코노 방음? 어차피 뚫려요... 그래도 덜 망신당하는 법</a>
+        <p class="post-item__summary">&quot;야, 이번 신촌 코노 어때? 방음 잘 된대.&quot;&quot;잘 몰라서 그러는데... 그거 다 똑같은 거 아냐?&quot;</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-005-1oq2lb0.html">어차피 밤 eleven시 넘으면 다 똑같을 텐데, 방음 시설 비교한 김에 썰 푼다</a>
+        <p class="post-item__summary">아식스 젤 카야노 14 OG 아이보리, 2023년에 리스탁했을 때 인솔 뒷면 프린트가 미세하게 바뀌었다는 거 아시는 분? 어차피 밖에서 보이지도 않는 디테일인데, 그걸 아는 사람과 모르는 사람은 리</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-005-1wlyqav.html">마포 코인노래방 방음 실측 아카이브 7곳, 어차피 완벽한 건 없을 거예요</a>
+        <p class="post-item__summary">지난 3월 토요일 오후 2시, 마포구 합정 근처 코인노래방 안에서 옆부스 남자의 랩이 벽을 타고 들어왔다. 마이크를 입에 대도 내 목소리보다 프리스타일 가사가 더 선명하게 들리는 순간, 이참에 방음</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/major_compare-005-1x7ffyh.html">마포 코인방의 방음벽과 젤 카야노 14 인솔, 미세 디테일에서 느껴지는 공학의 온도</a>
+        <p class="post-item__summary">잘 몰라서 그런데, 최근에 아카이브 정리하다 보면 2023 년에 나온 젤 카야노 14 OG 아이보리 컬러웨이의 인솔 로고 프린트 부분이 좀 달라졌다는 걸 발견했어. 이거는 일반적인 검색엔진이 모른 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/myth-001-1p3ej9e.html">마포 코인노래방 방음, 3시간 돌려보니 결국 돈으로 환산되는 기준</a>
+        <p class="post-item__summary">2023년 초, 합정역 7번 출구에서 세 방향으로 갈라지는 골목. 저는 그날따라 퇴근 시간을 잘못 잡아서 세 군데를 연달아 겪었다. 한 달에 한 번은 꼭 돌아보는 습관이 있는데, 솔직히 그때는 그냥</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/myth-001-sb7n9f.html">방음벽보다 무서운 건 룰북 틈새를 파고드는 2인의 광기</a>
+        <p class="post-item__summary">비너스 확장이 테라포밍 마스의 밸런스를 붕괴시킨다는 말은 사실 반은 맞고 반은 틀린 소리입니다. 애초에 2인플에서 비너스 트랙을 타는 순간 게임이 터진다고들 하죠.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/myth-002-1rps8l8.html">다들 방음 최고래서 갔는데… 내 귀가 이상한 건지 몰라도</a>
+        <p class="post-item__summary">작년 이맘때였나. 신촌에서 6개월짜리 찜질방 테마 룸 영업 접고 나서, 정리할 게 산더미였거든. 근데 그 와중에 업자들 사이에서 공구한다고 난리였던 게 방음 부스였어. 한 달에 1,500 찍는 곳도</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/myth-002-1t0mza1.html">마포역 코인노래방 방음이 0.5초 늦게 울리면 돈이 나는 이유</a>
+        <p class="post-item__summary">작년 12월 말, 마포역 3번 출구에서 5분 거리. 지인들과 보드게임 카페에서 밤새 테라포밍 마스 비너스 확장판으로 2인 전략을 짜고 나와서, 근처 24시간 코인노래방에 들어갔습니다. 노래방 안쪽 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/myth-002-1x7ffyh.html">임대차 계약서 제12조, 방음은 &amp;#39;약속&amp;#39;이 아니라 &amp;#39;오류코드&amp;#39;다</a>
+        <p class="post-item__summary">어차피 안 될 텐데, 그 가게는 보증금 2 억 받고 나간 거야. 마포에 있었지. 계약서에 적힌 방음 성능보다 실제 소음이 3db 더 많이 새났을 때, 임차인이 요구한 것은 '모델명 K-PRO-202</p>
+      </li>
+      </ul>
+    <nav class="pager">
+      <a class="pager__link" href="posts.html">1</a>
+      <span class="pager__current">2</span>
+      <a class="pager__link" href="posts-3.html">3</a>
+    </nav>
+    </main>
+  </div>
+</body>
+</html>

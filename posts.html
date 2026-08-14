@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글 목록 (1/3) · ganseo-doorway</title>
+  <meta name="description" content="ganseo-doorway에 올라온 글 목록입니다.">
+  <link rel="canonical" href="https://acoustic.roundlog.site/posts.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+ *,
+ *::before,
+ *::after {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
+ html {
+ font-size: 16px;
+ scroll-behavior: smooth;
+ }
+ body {
+ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans KR', sans-serif;
+ line-height: 1.8;
+ color: #1a1a2e;
+ background-color: #faf9f6;
+ letter-spacing: 0.01em;
+ }
+ a {
+ color: #b8860b;
+ text-decoration: none;
+ transition: color 0.3s ease;
+ }
+ a:hover {
+ color: #8b6508;
+ }
+ img,
+ svg {
+ max-width: 100%;
+ height: auto;
+ display: block;
+ }
+ h1,
+ h2,
+ h3,
+ h4 {
+ font-family: 'Noto Serif KR', 'Times New Roman', serif;
+ font-weight: 700;
+ line-height: 1.3;
+ color: #1a1a2e;
+ }
+ h1 {
+ font-size: clamp(2rem, 4vw, 3.2rem);
+ letter-spacing: -0.02em;
+ margin-bottom: 1.5rem;
+ }
+ h2 {
+ font-size: clamp(1.5rem, 3vw, 2.2rem);
+ margin-top: 3rem;
+ margin-bottom: 1.2rem;
+ border-bottom: 2px solid #b8860b;
+ padding-bottom: 0.5rem;
+ }
+ h3 {
+ font-size: clamp(1.2rem, 2vw, 1.6rem);
+ margin-top: 2rem;
+ margin-bottom: 0.8rem;
+ }
+ p {
+ margin-bottom: 1.2rem;
+ font-size: 1rem;
+ color: #2d2d44;
+ }
+ .drop-cap::first-letter {
+ font-size: 3.5em;
+ float: left;
+ line-height: 0.8;
+ margin-right: 0.15em;
+ font-family: 'Noto Serif KR', serif;
+ color: #b8860b;
+ font-weight: 700;
+ }
+ .container {
+ max-width: 960px;
+ margin: 0 auto;
+ padding: 0 1.5rem;
+ }
+ header {
+ background: #1a1a2e;
+ padding: 1rem 0;
+ position: sticky;
+ top: 0;
+ z-index: 1000;
+ border-bottom: 3px solid #b8860b;
+ }
+ .header-inner {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ max-width: 1200px;
+ margin: 0 auto;
+ padding: 0 1.5rem;
+ position: relative;
+ }
+ .site-title {
+ font-family: 'Noto Serif KR', serif;
+ font-size: 1.3rem;
+ color: #faf9f6;
+ font-weight: 700;
+ letter-spacing: 0.05em;
+ }
+ .site-title a {
+ color: #faf9f6;
+ }
+ .site-title a:hover {
+ color: #b8860b;
+ }
+ nav {
+ display: flex;
+ gap: 2rem;
+ align-items: center;
+ }
+ nav a {
+ color: #d4d4dc;
+ font-size: 0.95rem;
+ font-weight: 500;
+ letter-spacing: 0.03em;
+ transition: color 0.3s ease;
+ position: relative;
+ }
+ nav a::after {
+ content: '';
+ position: absolute;
+ bottom: -4px;
+ left: 0;
+ width: 0;
+ height: 2px;
+ background: #b8860b;
+ transition: width 0.3s ease;
+ }
+ nav a:hover::after {
+ width: 100%;
+ }
+ nav a:hover {
+ color: #faf9f6;
+ }
+ nav a.active {
+ color: #b8860b;
+ }
+ .hamburger-menu {
+ display: none;
+ background: none;
+ border: none;
+ cursor: pointer;
+ padding: 0.5rem;
+ }
+ .hamburger-menu span {
+ display: block;
+ width: 28px;
+ height: 3px;
+ background: #faf9f6;
+ margin: 5px 0;
+ border-radius: 2px;
+ transition: all 0.3s ease;
+ }
+ .tel-link {
+ display: inline-flex;
+ align-items: center;
+ gap: 0.4rem;
+ background: #b8860b;
+ color: #1a1a2e;
+ padding: 0.4rem 1.2rem;
+ border-radius: 30px;
+ font-weight: 600;
+ font-size: 0.9rem;
+ transition: background 0.3s ease, transform 0.2s ease;
+ }
+ .tel-link:hover {
+ background: #d4a420;
+ color: #1a1a2e;
+ transform: scale(1.05);
+ }
+ .tel-link::before {
+ content: '📞';
+ font-size: 1rem;
+ }
+ main {
+ padding: 3rem 0 5rem;
+ }
+ .hero-section {
+ background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+ color: #faf9f6;
+ padding: 4rem 0;
+ margin-bottom: 3rem;
+ text-align: center;
+ }
+ .hero-section h1 {
+ color: #faf9f6;
+ margin-bottom: 1rem;
+ }
+ .hero-section p {
+ color: #d4d4dc;
+ font-size: 1.1rem;
+ max-width: 700px;
+ margin: 0 auto;
+ }
+ .profile-card {
+ display: flex;
+ align-items: flex-start;
+ gap: 2.5rem;
+ background: #ffffff;
+ border-radius: 12px;
+ padding: 2.5rem;
+ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+ margin-bottom: 2.5rem;
+ border-left: 4px solid #b8860b;
+ }
+ .profile-image {
+ flex-shrink: 0;
+ width: 180px;
+ height: 180px;
+ border-radius: 50%;
+ background: #e8e4d9;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 4rem;
+ color: #b8860b;
+ border: 3px solid #b8860b;
+ }
+ .profile-info h2 {
+ margin-top: 0;
+ border-bottom: none;
+ padding-bottom: 0;
+ font-size: 1.6rem;
+ }
+ .profile-info .subtitle {
+ color: #b8860b;
+ font-weight: 600;
+ font-size: 0.95rem;
+ margin-bottom: 1rem;
+ letter-spacing: 0.05em;
+ }
+ .profile-info p {
+ font-size: 0.95rem;
+ color: #2d2d44;
+ }
+ .credentials-list {
+ list-style: none;
+ padding: 0;
+ margin: 1.5rem 0;
+ }
+ .credentials-list li {
+ padding: 0.6rem 0;
+ border-bottom: 1px solid #e8e4d9;
+ display: flex;
+ gap: 0.8rem;
+ align-items: baseline;
+ font-size: 0.95rem;
+ }
+ .credentials-list li::before {
+ content: '✓';
+ color: #b8860b;
+ font-weight: 700;
+ flex-shrink: 0;
+ }
+ .stats-grid {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 1.5rem;
+ margin: 2.5rem 0;
+ }
+ .stat-item {
+ background: #ffffff;
+ border-radius: 10px;
+ padding: 1.8rem 1.2rem;
+ text-align: center;
+ box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+ border: 1px solid #e8e4d9;
+ }
+ .stat-item .number {
+ font-size: 2.2rem;
+ font-weight: 700;
+ color: #b8860b;
+ font-family: 'Noto Serif KR', serif;
+ }
+ .stat-item .label {
+ font-size: 0.85rem;
+ color: #6b6b80;
+ margin-top: 0.4rem;
+ letter-spacing: 0.02em;
+ }
+ .faq-section {
+ background: #ffffff;
+ border-radius: 12px;
+ padding: 2rem;
+ margin-top: 2.5rem;
+ box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+ }
+ .faq-item {
+ padding: 1.2rem 0;
+ border-bottom: 1px solid #e8e4d9;
+ }
+ .faq-item:last-child {
+ border-bottom: none;
+ }
+ .faq-item h4 {
+ font-size: 1.05rem;
+ margin-bottom: 0.6rem;
+ color: #1a1a2e;
+ cursor: pointer;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ }
+ .faq-item h4::after {
+ content: '+';
+ font-size: 1.5rem;
+ color: #b8860b;
+ font-weight: 300;
+ }
+ .faq-item p {
+ font-size: 0.92rem;
+ color: #2d2d44;
+ margin-bottom: 0;
+ }
+ footer {
+ background: #1a1a2e;
+ color: #d4d4dc;
+ padding: 2.5rem 0;
+ text-align: center;
+ font-size: 0.9rem;
+ border-top: 3px solid #b8860b;
+ }
+ footer p {
+ color: #d4d4dc;
+ margin-bottom: 0.3rem;
+ }
+ footer a {
+ color: #b8860b;
+ }
+ @media (max-width: 768px) {
+ .hamburger-menu {
+ display: block;
+ }
+ nav {
+ display: none;
+ position: absolute;
+ top: 100%;
+ left: 0;
+ right: 0;
+ background: #1a1a2e;
+ flex-direction: column;
+ padding: 1.5rem;
+ gap: 1rem;
+ border-bottom: 3px solid #b8860b;
+ z-index: 999;
+ }
+ nav.active {
+ display: flex;
+ }
+ .profile-card {
+ flex-direction: column;
+ align-items: center;
+ text-align: center;
+ padding: 1.5rem;
+ }
+ .profile-image {
+ width: 140px;
+ height: 140px;
+ font-size: 3rem;
+ }
+ .stats-grid {
+ grid-template-columns: 1fr;
+ gap: 1rem;
+ }
+ .credentials-list li {
+ text-align: left;
+ }
+ .hero-section {
+ padding: 2.5rem 0;
+ }
+ .container {
+ padding: 0 1rem;
+ }
+ }
+ @media (min-width: 769px) {
+ .hamburger-menu {
+ display: none;
+ }
+ nav {
+ display: flex !important;
+ }
+ }
+ </style>
+  <meta property="og:title" content="글 목록 (1/3) · ganseo-doorway">
+  <meta property="og:description" content="ganseo-doorway에 올라온 글 목록입니다.">
+  <meta property="og:url" content="https://acoustic.roundlog.site/posts.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+</head>
+<body>
+  <div class="container">
+    <header>
+ <div class="header-inner">
+ <div class="site-title">
+ <a href="/">마포 방음 시설 가이드</a>
+ </div>
+ <button class="hamburger-menu" aria-label="메뉴 열기" onclick="this.classList.toggle('active'); document.querySelector('nav').classList.toggle('active');">
+ 
+ 
+ 
+ </button>
+ <nav>
+ <a href="/">홈</a>
+ <a href="/about" class="active">소개</a>
+ <a href="/mapo-guide">마포구 가이드</a>
+ <a href="/comparison">비교 분석</a>
+ <a href="/reviews">방문 후기</a>
+ <a href="/faq">FAQ</a>
+ 
+ </nav>
+ </div>
+ </header>
+    <main>
+      <h1>글 목록</h1>
+      <p>전체 58개 · 1/3 페이지</p>
+      <ul class="post-list">
+      <li class="post-item">
+        <a class="post-item__link" href="posts/field_note-001-1kxjz17.html">어차피 코인노래방 방음은 다 비슷비슷할 거라 생각했는데, 3dB 차이가 생각보다 크더라고요</a>
+        <p class="post-item__summary">방음 자재 두께가 50mm와 70mm 사이에서 갈리는 순간이 있거든요. 수치로는 별거 아닌데, 문 닫고 마이크 잡으면 귀가 바로 알아요.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/field_note-001-1s5u8gh.html">방음 부스 안에서 속삭인 욕설도 밖에선 박자로 들리더라</a>
+        <p class="post-item__summary">2023년 12월 기준 마포구에 등록된 코인노래방 중 방음 시설에 1천만원 이상 투자한 업장 비율이 23% 미만이라는 통계를 봤다. 어차피 대부분 판넬 두드려보면 텅텅 빈 소리 나는 곳들일 텐데. </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/field_note-001-1x5ot9o.html">마포 코인노래방 방음, 어차피 기대 안 했지만… 그래도 확인은 해둬야 하잖아</a>
+        <p class="post-item__summary">2023년 11월. 홍대입구역 3번 출구 앞에서 후배가 내 팔을 붙잡았다. &quot;형, 나 이번에 코노 리모델링하는데 방음 업체 추천 좀…&quot; 나는 대답 대신 핸드폰을 꺼내 아카이브 폴더를 뒤적였다. 어차</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/field_note-002-11jcfho.html">마포 코인방 방음 실측 기록</a>
+        <p class="post-item__summary">30분에 3천원 내고 부르는데, 벽 너머 사내가 &quot;아 배배배&quot; 하는 게 고스란히 들리는 코인방이 있다. 옆방에서 빵빵거려도 내 안에서 메아리만 남는 곳도 있다. 둘 다 마포에 있다. 문제는 예약할 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/field_note-003-1b0zymp.html">마포 코인노래방 방음 비교할 때 꼭 알아야 할 것들</a>
+        <p class="post-item__summary">방음 측정기 들고 마포 일대 코인노래방 12곳 돌아다닌 기록입니다. 잘 몰라서 그런데요, 결과적으로 생각보다 심각한 차이가 있더라고요.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/field_note-003-43fhw3.html">잘 몰라서 그러는데 마포 코인노래방 방음 부스에서 뜯어본 기밀 데이터 아카이브가 쓸모가 있을까요</a>
+        <p class="post-item__summary">2013년 6월 6일 오후 2시 14분, 구글 트렌드에서 특정 기밀 프로젝트 관련 검색량이 단 3분 만에 평소 대비 4,200% 폭증하는 기현상이 발생했습니다. 데이터 과학자랍시고 모니터만 쳐다보던</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/field_note-004-1omldn7.html">방음 부스에서 코인 빠지는 소리가 제일 크더라</a>
+        <p class="post-item__summary">어제 새벽 3시, 마포 모 코인노래방 7번 부스에서 완전히 망했음. 데스노트 OP 'the WORLD' 부르다가 옆방 커플이 쿵쾅쿵쾅 벽을 치는 거야. 야, 나도 사람이야. 근데 그게 부끄럽다기보다</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/field_note-004-1x7ffyh.html">오리지널 박스가 찌그러질 때, 코인노래방 소리가 40% 더 크게 들리네?</a>
+        <p class="post-item__summary">asics gel kayano 14, og ivory colorway, sneaker box detail, retro running shoes (1.2), vintage sneaker archive</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/field_note-004-7cr7zj.html">마포 코인노래방 방음 실측기</a>
+        <p class="post-item__summary">실측 기준값부터 던지겠다. 합정역 9번 출구 기준 반경 800m 내 코인노래방 11곳을 돌면서 SPL 측정기(Phone Clinometer Pro, 캘리브레이션 12월 2024 기준)로 복도 기준 </p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/field_note-004-a2tem0.html">홍대 코인노래방 다 돌고 나서야 깨달은 방음의 잔인한 진실</a>
+        <p class="post-item__summary">지난주 토요일 오후 2시, 마포구 서교동 골목길. 코인노래방 10m 앞에서 아직도 베이스가 새어나오면 그 건물은 포기하는 게 맞아요.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/field_note-005-1lptdcb.html">마포 코인방 방음 파일 47건 정리했는데, 결국 벽 하나가 전부입니다</a>
+        <p class="post-item__summary">3월 둘째 주, 마포 합정역 뒷골목의 코인방 두 곳을 같은 주에 갔습니다. 한 곳은 옆방 듀엣 소리가 벽면을 타고 그대로 들어왔고, 다른 곳은 문을 닫으면 꽤 고립된 느낌이었어요. 같은 동네, 비슷</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-001-2rcbpy.html">마포 코인노래방 방음, 소리 잡으려다 돈만 날린 썰 풀어봄</a>
+        <p class="post-item__summary">타일러 더든의 첫 공식 등장은 영화 시작 6분 22초 부근이다. 그런데 0분 8초부터 감독은 프레임 하나씩 끼워 넣었다. 뇌가 인식할까 말까 한 시간, 1/24초짜리 절단편. David Finche</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-001.html">테라포밍 마스 venus 확장에서 본, 마포 노래방 방음 공학의 비극적 진실</a>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-002-imhw67.html">잘은 모르겠지만... 마포 코인노래방 방음 벽두께 뒤지다가 발견한 블레이드 러너 유니콘 필름의 비밀 (어차피 방음 안 될 텐데)</a>
+        <p class="post-item__summary">1989년 가을, 런던의 한 어두운 현상소 창고 구석에서 먼지 쌓인 35mm 포지티브 필름 릴 하나가 발견되었습니다.</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-002-kzwwal.html">마포 코인노래방 방음 비교하려다 완전히 말아먹은 사람이 정리한 잡동사니</a>
+        <p class="post-item__summary">새벽 2시 반, 마포역 2번 출구에서 500미터 떨어진 원룸. 윗집에서 코인노래방 소음 민원이 들어와서 경찰이 두 번째 출동한 날이었다. 87데시벨이 벽 너머로 새어나간다는 건, 소리가 빠져나갈 틈</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-002.html">마포 코인노래방 방음 시설 비교 가이드, 룰 버그 같지만 진짜로 중요한 스탯 차이</a>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-003-1b1k6nb.html">마포 코인노래방 방음, 기준표 없으면 돈 낭비하는 구조</a>
+        <p class="post-item__summary">지난 3월 홍대 뒷골목, 자정쯤 코인노래방 세 군데를 돌아다니며 휴대폰으로 녹음했다. 같은 노래, 같은 볼륨에서 녹음된 파일을 비교하니까 생각보다 차이가 극적이었다. 밖에서 들리는 소음 레벨이 20</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-003-1x7ffyh.html">마포 코인노래방 방음 시설 비교 가이드</a>
+        <p class="post-item__summary">어차피 안 될 텐데, 일단은 이걸 아카이브 해둬야 함. 마포 근처에 코인 노래방을 운영하려는 분들의 질문이 늘어서서, 구글 트렌드 데이터를 캐파해서 보니 흥미롭더라. 보통 &quot;방음&quot; 검색량이 3 개월</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-003-59s7lt.html">유니콘은 왜 알리익스프레스산 장난감이었을까</a>
+        <p class="post-item__summary">블레이드 러너 파이널 컷의 유니콘 꿈 장면이 왜 리들리 스콧의 최종 판단을 뒤집는 핵심 증거가 되는지, 혹시 그 반대 아닐까?</p>
+      </li>
+      <li class="post-item">
+        <a class="post-item__link" href="posts/guide-003-9jfnri.html">어차피 망할 확장인데, 그래도 수치는 짚고 넘어가야지</a>
+        <p class="post-item__summary">2024년 12월 13일 아카이브에서 이걸 또 꺼내보게 될 줄은 몰랐다. 테포마 한국 초판 비너스 넥스트(Venus Next) 확장. 지금은 절판돼서 중고가가 18만 원에서 24만 원 사이를 오가고</p>
+      </li>
+      </ul>
+    <nav class="pager">
+      <span class="pager__current">1</span>
+      <a class="pager__link" href="posts-2.html">2</a>
+      <a class="pager__link" href="posts-3.html">3</a>
+    </nav>
+    </main>
+  </div>
+</body>
+</html>
